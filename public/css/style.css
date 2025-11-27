@@ -11,6 +11,9 @@ body{
 .navbar{
         height: 5rem;
         background-color: white;
+        position: sticky;           
+        top: 0;
+        z-index: 2000;   
 }
 .fa-compass{
         color: #fe424d;
@@ -19,6 +22,7 @@ body{
 .nav-link{
      color: #222222 !important;   
 }
+
 /* footer */
 .f-info-links a{
         text-decoration: none;

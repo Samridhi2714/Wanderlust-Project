@@ -42,6 +42,45 @@
       display: none;
     }
   }
+  @media (max-width: 576px) {
+
+  #filters {
+    overflow-x: scroll !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none; 
+  }
+  #filters::-webkit-scrollbar {
+    display: none; 
+  }
+
+  .filter {
+    margin-right: 1rem !important;
+    margin-top: 1rem !important;
+    opacity: 0.8;
+  }
+
+  .filter p {
+    font-size: 0.7rem !important;
+  }
+
+  .filter i {
+    font-size: 1.2rem !important;
+  }
+
+  .row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .card-img-top {
+    height: 200px !important;
+    object-fit: cover;
+  }
+}
+
 </style>
 <div id="filters">
   <a href="/listings/category/trending" class="filter text-dark">

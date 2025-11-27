@@ -10,9 +10,13 @@
       alt="<%= listing.image.filename %>"
     />
     <div class="card-body">
+      <p class="text-muted" style="font-size:14px;">
+     This is demo data created for demonstration purposes only.
+      </p>
+
       <p class="card-text"></p>
       <br />
-      <p class="card-text">Owned By:<i><%= listing.owner.username%></i></p>
+      <p class="card-text"><b>Owned By:</b><i><%= listing.owner.username%></i></p>
 
       <p class="card-text"><%=listing.description %></p>
       <p class="card-text">&#8377; <%=listing.price %></p>
@@ -35,7 +39,7 @@
     <% } %>
   </div>
 
-  <%# ----- Review Form ------%>
+  <%#----- Review Form ------%>
   <div class="col-8 offset-3">
     <hr />
     <% if(currUser) { %>

@@ -108,7 +108,7 @@ module.exports.updateListing = async (req, res) => {
   listing.price = req.body.listing.price;
   listing.country = req.body.listing.country;
   listing.location = req.body.listing.location;
-
+  listing.category = req.body.listing.category;
   // Re-geocode when location changed
   if (req.body.listing.location !== oldLocation) {
     try {
