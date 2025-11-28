@@ -1,7 +1,6 @@
-if(process.env.NODE_ENV != "production") {
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
-};
-require('dotenv').config();
+}
 
 const express = require("express");
 const app = express();
@@ -21,8 +20,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const multer = require("multer");
-const { storage } = require("./cloudConfig");
-const upload = multer({ storage });
+const { storage } = require("./cloudConfig.js");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
@@ -30,19 +28,11 @@ const userRouter = require("./routes/user.js");
 
 //const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
-mongoose.connect(dbUrl, 
-  { dbName: "wanderlust" });
-main()
-  .then(() => {
-    console.log("connected to DB.");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-async function main() {
-  await mongoose.connect(dbUrl);
-}
+mongoose.connect(dbUrl, {
+  dbName: "wanderlust",
+})
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log("DB connection error:", err));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -87,7 +77,9 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next(); 
 });
-
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);
@@ -122,13 +114,13 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Something went wrong!";
-  console.error("ERROR STACK:", err.stack);
   res.status(statusCode).render("error.ejs", { err });
   console.log(err);
   // OR, if you’re not rendering a view:
   // res.status(statusCode).send(message);
 });
 
-app.listen(8080, () => {
-  console.log("Server is listening to port 8080.");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
