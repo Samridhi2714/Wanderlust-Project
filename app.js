@@ -40,6 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static("public"));
 
 const store = MongoStore.create({
   mongoUrl: process.env.ATLASDB_URL,
@@ -77,7 +78,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next(); 
 });
-app.get("/", (req, res) => {
+app.get("/", (req , res) => {
   res.redirect("/listings");
 });
 app.use("/listings",listingRouter);
@@ -107,8 +108,8 @@ app.use("/",userRouter);
         res.send("Successful testing.");
 });      */ 
 
-app.use((req, res, next) => {
-  next(new ExpressError(404,"Page not found"));
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page not found"));
 });
 
 app.use((err, req, res, next) => {
